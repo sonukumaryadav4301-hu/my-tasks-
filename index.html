@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Tasks — To-Do List</title>
+
+  <!-- PWA setup: makes the app installable with its own icon -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#4C5FD5">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <main class="app" role="main">
+    <header class="app-header">
+      <div class="header-top">
+        <h1>My Tasks</h1>
+        <label for="themeSelect" class="visually-hidden">Choose theme</label>
+        <select id="themeSelect" class="theme-select" aria-label="Choose theme">
+          <option value="light">☀️ Light</option>
+          <option value="dark">🌙 Dark</option>
+          <option value="ocean">🌊 Ocean</option>
+          <option value="forest">🌿 Forest</option>
+        </select>
+      </div>
+      <p class="subtitle">Stay on top of your day, one task at a time.</p>
+      <button id="reminderBtn" class="reminder-btn" type="button">🔔 Enable due-date reminders</button>
+    </header>
+
+    <!-- Add task form -->
+    <form id="taskForm" class="task-form">
+      <label for="taskInput" class="visually-hidden">New task</label>
+      <input
+        type="text"
+        id="taskInput"
+        placeholder="What do you need to do?"
+        autocomplete="off"
+        maxlength="120"
+      >
+
+      <label for="priorityInput" class="visually-hidden">Priority</label>
+      <select id="priorityInput" class="priority-select" aria-label="Priority">
+        <option value="low">🟢 Low</option>
+        <option value="medium" selected>🟡 Medium</option>
+        <option value="high">🔴 High</option>
+      </select>
+
+      <label for="dueDateInput" class="visually-hidden">Due date (optional)</label>
+      <input
+        type="date"
+        id="dueDateInput"
+        class="date-input"
+        aria-label="Due date (optional)"
+      >
+
+      <label for="startTimeInput" class="visually-hidden">Start time (optional)</label>
+      <input
+        type="time"
+        id="startTimeInput"
+        class="time-input"
+        aria-label="Start time (optional)"
+      >
+
+      <span class="time-sep" aria-hidden="true">to</span>
+
+      <label for="endTimeInput" class="visually-hidden">End time (optional)</label>
+      <input
+        type="time"
+        id="endTimeInput"
+        class="time-input"
+        aria-label="End time (optional)"
+      >
+
+      <button type="submit" class="btn-primary">Add Task</button>
+    </form>
+
+    <!-- Status filter buttons -->
+    <div class="filters" role="tablist" aria-label="Filter tasks by status">
+      <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">All</button>
+      <button class="filter-btn" data-filter="active" role="tab" aria-selected="false">Active</button>
+      <button class="filter-btn" data-filter="completed" role="tab" aria-selected="false">Completed</button>
+    </div>
+
+    <!-- Date-range filter buttons -->
+    <div class="filters date-filters" role="tablist" aria-label="Filter tasks by due date">
+      <button class="filter-btn active" data-scope="all" role="tab" aria-selected="true">All dates</button>
+      <button class="filter-btn" data-scope="today" role="tab" aria-selected="false">Today</button>
+      <button class="filter-btn" data-scope="week" role="tab" aria-selected="false">This Week</button>
+      <button class="filter-btn" data-scope="month" role="tab" aria-selected="false">This Month</button>
+    </div>
+
+    <!-- Task list -->
+    <ul id="taskList" class="task-list"></ul>
+
+    <!-- Empty state message, shown/hidden by JS -->
+    <p id="emptyState" class="empty-state">
+      Nothing here yet — add your first task above.
+    </p>
+
+    <!-- Footer: task counter + clear completed -->
+    <footer class="app-footer">
+      <span id="taskCount">0 tasks left</span>
+      <button id="clearCompleted" class="btn-text">Clear completed</button>
+    </footer>
+  </main>
+
+  <!-- Undo delete toast -->
+  <div id="undoToast" class="undo-toast">
+    <span id="undoMessage">Task deleted</span>
+    <button id="undoBtn" class="undo-btn" type="button">Undo</button>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
